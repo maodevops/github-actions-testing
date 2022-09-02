@@ -1,0 +1,43 @@
+name: learn
+on:
+  push:
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        base_image: [rockylinux/rockylinux]
+        tag: [latest, 8, 8.6, 9, 9.0]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Show build matrix result
+        run: |
+          echo "${{ matrix.base_image }}:${{ matrix.tag }}"
+          echo "${{ matrix.base_image }}:${{ matrix.tag }}_${BUILD_VERSION}"
+
+      # - name: Show event
+      #   run: |
+      #     echo "Event name: ${{ github.event.inputs.name }}"
+
+      # - name: Set short
+      #   run: echo "short=${GITHUB_REF##*/}" >> "${GITHUB_ENV}"
+
+      # - name: Set tag
+      #   run: echo "tag=${short/main/latest}" >> "${GITHUB_ENV}"
+
+      # - name: Set tag
+      #   run: cat "${GITHUB_ENV}"
+
+      # - name: Show BUILD_DATE
+      #   run: date -u +'%Y-%m-%dT%H:%M:%SZ'
+
+      # - name: Show BUILD_VERSION
+      #   run: echo "${BUILD_VERSION}"
+
+      # - name: Show VCS_REF
+      #   run: git rev-parse HEAD
